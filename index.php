@@ -6,19 +6,18 @@
 	<body>
 		<?php
 			include '../config.php';
-
-
 			if($link){
-				echo "My first PHP script!";
+				echo "Connection Made";
 
 			}else{
-				echo " never mind";
+				echo "Connection Failed";
 			}
 			$file_path = "../start.html";
 
 			$fileContents=file_get_contents($file_path);
 			$newHtmlContent=preg_replace("/<div class=\"main\">(.*)</div>/i",'<div class="main">Some text here</div>',$fileContents);
 			file_put_contents($file_path,$newHtmlContent);
+			
 		?>
 
 		<div class = "title page">
@@ -26,7 +25,7 @@
 		</div>
 		<div>
 			<li> 
-				<a href = "host.html">
+				<a href = "host.php">
 					Host an Event
 				</a>
 			</li>
