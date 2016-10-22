@@ -95,8 +95,10 @@
 		if (!$conn) {
 		    die("Connection failed: " . mysqli_connect_error());
 		}
+		$substring_place_id = substr($place_id, 21, 5);
+		echo $substring_place_id;
 		// create sql command
-		$sql = sprintf("INSERT INTO host (event_name,place_id) VALUES ('%s','%s')", $event_name , $place_id );
+		$sql = sprintf("INSERT INTO host (event_name,place_id,event_code) VALUES ('%s','%s','%s')", $event_name , $place_id ,$substring_place_id);
 		// $sql = sprintf("INSERT INTO host (event_name) VALUES ('%s')", $event_name );
 		// $sql = sprintf("INSERT INTO host (place_id) VALUES ('%s')" , $place_id );
 

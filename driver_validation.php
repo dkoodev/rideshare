@@ -46,7 +46,8 @@
 
 	</body>
 <?php
-
+	session_start();
+	// $_SESSION['myValue']=3;
 	// bring in db configure 
 	include '../config.php';
 	// define variables and set to empty values
@@ -101,6 +102,7 @@
 		     echo "failed to find database";
 		} else {
 		    
+			$_SESSION['event_code']=$event_code;
 
 		    echo "found databases";
 		    echo "<script> window.location.replace('driver.php') </script>";

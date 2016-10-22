@@ -63,7 +63,8 @@
 
 	</body>
 <?php
-
+	session_start();
+	$event_code = $_SESSION['event_code'];
 	// bring in db configure 
 	include '../config.php';
 	// define variables and set to empty values
