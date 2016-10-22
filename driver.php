@@ -26,12 +26,12 @@
 		<!-- Start Formoid form-->
 		<form class="formoid-solid-blue"  style="background-color:#FFFFFF;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:480px;min-width:150px" method="post">
 			<div class="title">
-				<h2>Create Event</h2>
+				<h2>Become a driver</h2>
 			</div>
 			<div class="element-input">
 				<label class="title"></label>
 				<div class="item-cont">
-					<input class="large" type="text" name="input" placeholder="Event Name"/>
+					<input class="large" type="text" name="driver_name" placeholder="Driver Name"/>
 					<span class="icon-place"></span>
 				</div>
 
@@ -76,7 +76,7 @@
 	// }
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		$event_name = $place_id = "";
+		$driver_name = $place_id = "";
 		// $doc = new DomDocument;
 		// // We need to validate our document before refering to the id
 		// $doc->validateOnParse = true;
@@ -86,7 +86,7 @@
 		// $place_id = test_input($_POST['variable']);
 
 		$place_id = $_POST["place_id"];
-	  	$event_name = $_POST["input"];
+	  	$driver_name = $_POST["driver_name"];
 	  	// $place_id = test_input($_POST['variable']);
 
 		// Create connection
@@ -96,7 +96,7 @@
 		    die("Connection failed: " . mysqli_connect_error());
 		}
 		// create sql command
-		$sql = sprintf("INSERT INTO host (event_name,place_id) VALUES ('%s','%s')", $event_name , $place_id );
+		$sql = sprintf("INSERT INTO driver (driver_name,place_id) VALUES ('%s','%s')", $driver_name , $place_id );
 		// $sql = sprintf("INSERT INTO host (event_name) VALUES ('%s')", $event_name );
 		// $sql = sprintf("INSERT INTO host (place_id) VALUES ('%s')" , $place_id );
 
