@@ -83,7 +83,7 @@
 		    die("Connection failed: " . mysqli_connect_error());
 		}
 
-		$sql = sprintf("SELECT id FROM host WHERE ID = '%s'",$event_code);
+		$sql = sprintf("SELECT id FROM host WHERE event_code = '%s'",$event_code);
 	
 		// create sql command
 		// $sql = sprintf("INSERT INTO host (event_name,place_id) VALUES ('%s','%s')", $event_name , $place_id );
