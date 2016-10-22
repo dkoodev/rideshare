@@ -17,7 +17,7 @@
 
 	<body class="blurBg-false" style="background-color:#EBEBEB">
 		<div class = "title page">
-			"Host an Event"		
+			"Become a driver"		
 		</div>
 <!-- PHP form validation -->
 

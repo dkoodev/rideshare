@@ -31,7 +31,9 @@
 			</li>
 
 			<li>
-				Be a Driver
+				<a href = "driver_validation.php">
+					Be a Driver
+				</a>
 			</li>
 				
 
