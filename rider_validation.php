@@ -12,7 +12,9 @@
 	    <script type="text/javascript" src="formoid_files/formoid1/jquery.min.js"></script>
 		<script type="text/javascript" src="formoid_files/formoid1/formoid-solid-blue.js"></script>
 		<!-- Functions -->
-		
+		<?php
+			session_start();
+		?>
 	</head>
 
 	<body class="blurBg-false" style="background-color:#EBEBEB">
@@ -46,7 +48,7 @@
 
 	</body>
 <?php
-	session_start();
+	// session_start();
 
 	// bring in db configure 
 	include '../config.php';

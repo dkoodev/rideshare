@@ -12,7 +12,9 @@
 	    <script type="text/javascript" src="formoid_files/formoid1/jquery.min.js"></script>
 		<script type="text/javascript" src="formoid_files/formoid1/formoid-solid-blue.js"></script>
 		<!-- Functions -->
-		
+		<?php
+		session_start();
+		?>
 	</head>
 
 	<body class="blurBg-false" style="background-color:#EBEBEB">
@@ -63,7 +65,7 @@
 
 	</body>
 <?php
-	session_start();
+	// session_start();
 	$event_code = $_SESSION['event_code'];
 	// bring in db configure 
 	include '../config.php';
@@ -97,7 +99,7 @@
 		    die("Connection failed: " . mysqli_connect_error());
 		}
 		// create sql command
-		$sql = sprintf("INSERT INTO driver (driver_name,place_id) VALUES ('%s','%s')", $driver_name , $place_id );
+		$sql = sprintf("INSERT INTO driver (driver_name,place_id,event_code) VALUES ('%s','%s','%s')", $driver_name , $place_id , $event_code);
 		// $sql = sprintf("INSERT INTO host (event_name) VALUES ('%s')", $event_name );
 		// $sql = sprintf("INSERT INTO host (place_id) VALUES ('%s')" , $place_id );
 
