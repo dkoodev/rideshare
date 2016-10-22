@@ -100,10 +100,10 @@
 		if(mysqli_num_rows($result) == 0) {
 		     echo "failed to find database";
 		} else {
-		    echo "found database";
+		    
 
-		    header("Location: driver.php");
-		    exit;
+		    echo "found databases";
+		    echo "<script> window.location.replace('driver.php') </script>";
 
 		}
 	}
