@@ -38,7 +38,9 @@
 				
 
 			<li>
-				I need to be picked up
+				<a href = "rider_validation.php">
+					I Need to be Picked up!
+				</a>
 			</li>
 			<li>
 				Track Rides Progress
