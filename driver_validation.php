@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
 	<head>
 		<!-- Meta -->
@@ -12,9 +15,7 @@
 	    <script type="text/javascript" src="formoid_files/formoid1/jquery.min.js"></script>
 		<script type="text/javascript" src="formoid_files/formoid1/formoid-solid-blue.js"></script>
 		<!-- Functions -->
-		<?php
-		session_start();
-		?>
+
 	</head>
 
 	<body class="blurBg-false" style="background-color:#EBEBEB">
@@ -104,7 +105,9 @@
 		     echo "failed to find database";
 		} else {
 		    
-			$_SESSION['event_code']=$event_code;
+			$_SESSION['event_code'] = $event_code;
+			print_r($_SESSION);
+			session_write_close();
 
 		    echo "found databases";
 		    echo "<script> window.location.replace('driver.php') </script>";

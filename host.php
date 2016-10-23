@@ -91,7 +91,7 @@
 
 		// Create connection
 		$conn = mysqli_connect($host, $user, $password, $db);
-		// Check connection
+		// Check connection1
 		if (!$conn) {
 		    die("Connection failed: " . mysqli_connect_error());
 		}

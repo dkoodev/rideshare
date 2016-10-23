@@ -14,6 +14,27 @@
 		<!-- Functions -->
 		<?php
 		session_start();
+		
+
+		include '../config.php';
+		$event_code = $_SESSION['event_code'];
+
+		echo $event_code;
+		$conn = mysqli_connect($host, $user, $password, $db);
+		if (!$conn) {
+		    die("Connection failed: " . mysqli_connect_error());
+		}
+		$get_event_name = sprintf("SELECT event_name FROM host WHERE event_code = '%s'", $event_code);
+		$query_result = mysqli_query($conn, $get_event_name);
+
+		if (!$query_result) {
+		    echo 'Could not run query: ' . mysqli_error();
+		    exit;
+		}
+		$row = mysqli_fetch_array($query_result);
+
+		$event_name = $row[0];
+		echo $row;
 		?>
 	</head>
 
@@ -31,7 +52,9 @@
 				<h2>Become a driver</h2>
 			</div>
 			<div class="element-input">
-				<label class="title"></label>
+				<label class="title"> 
+					<h3 class="section-break-title"> Event Name: <?php echo $event_name; ?> </h3>
+				</label>
 				<div class="item-cont">
 					<input class="large" type="text" name="driver_name" placeholder="Driver Name"/>
 					<span class="icon-place"></span>
@@ -66,9 +89,7 @@
 	</body>
 <?php
 	// session_start();
-	$event_code = $_SESSION['event_code'];
 	// bring in db configure 
-	include '../config.php';
 	// define variables and set to empty values
 
 	// function test_input($data) {
@@ -93,11 +114,11 @@
 	  	// $place_id = test_input($_POST['variable']);
 
 		// Create connection
-		$conn = mysqli_connect($host, $user, $password, $db);
+		// $conn = mysqli_connect($host, $user, $password, $db);
 		// Check connection
-		if (!$conn) {
-		    die("Connection failed: " . mysqli_connect_error());
-		}
+	  	// if (!$conn) {
+	  	//     die("Connection failed: " . mysqli_connect_error());
+	  	// }
 		// create sql command
 		$sql = sprintf("INSERT INTO driver (driver_name,place_id,event_code) VALUES ('%s','%s','%s')", $driver_name , $place_id , $event_code);
 		// $sql = sprintf("INSERT INTO host (event_name) VALUES ('%s')", $event_name );

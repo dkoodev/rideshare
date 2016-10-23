@@ -103,8 +103,8 @@
 		if(mysqli_num_rows($result) == 0) {
 		     echo "failed to find database";
 		} else {
-		   	$_SESSION['event_code']=$event_code;
-
+		   	$_SESSION['event_code'] = $event_code;
+		   	session_write_close();
 		    echo "found databases";
 		    echo "<script> window.location.replace('rider.php') </script>";
 

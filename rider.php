@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <html>
 	<head>
 		<!-- Meta -->
@@ -13,7 +17,22 @@
 		<script type="text/javascript" src="formoid_files/formoid1/formoid-solid-blue.js"></script>
 		<!-- Functions -->
 		<?php
-		session_start();
+			include '../config.php';
+			$conn = mysqli_connect($host, $user, $password, $db);
+
+			$event_code = $_SESSION['event_code'];
+			$get_event_name = sprintf("SELECT event_name FROM host WHERE event_code = '%s'", $event_code);
+			$query_result = mysqli_query($conn, $get_event_name);
+
+			if (!$query_result) {
+			    echo 'Could not run query: ' . mysqli_error();
+			    exit;
+			}
+
+			$row = mysqli_fetch_array($query_result);
+
+			$event_name = $row[0];
+			echo $row;
 		?>
 	</head>
 
@@ -31,7 +50,9 @@
 				<h2>I Need to be Picked Up!</h2>
 			</div>
 			<div class="element-input">
-				<label class="title"></label>
+				<label class="title"> 
+					<h3 class="section-break-title"> Event Name: <?php echo $event_name; ?> </h3>
+				</label>
 				<div class="item-cont">
 					<input class="large" type="text" name="rider_name" placeholder="Rider Name"/>
 					<span class="icon-place"></span>
@@ -93,7 +114,6 @@
 	  	// $place_id = test_input($_POST['variable']);
 
 		// Create connection
-		$conn = mysqli_connect($host, $user, $password, $db);
 		// Check connection
 		if (!$conn) {
 		    die("Connection failed: " . mysqli_connect_error());
