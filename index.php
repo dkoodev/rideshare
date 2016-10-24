@@ -26,20 +26,20 @@
 
 		<div>
 			<li>
-				<form action="host.php">
-    				<input type="submit" value="Host an Event" />
+				<form action="host_create_or_progress.php">
+    				<input type="submit" value="Host" />
 				</form>
 			</li>
 
 			<li>
 				<form action="driver_validation.php">
-    				<input type="submit" value="Become a Driver" />
+    				<input type="submit" value="Driver" />
 				</form>
 			</li>
 				
 			<li>
 				<form action="rider_validation.php">
-    				<input type="submit" value="I Need to be Picked Up" />
+    				<input type="submit" value="Rider" />
 				</form>
 			</li>
 
