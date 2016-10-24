@@ -42,6 +42,13 @@
 		    exit;
 		}
 		$row_of_drivers = mysqli_query($conn, $get_drivers);
+		
+		$get_riders= sprintf("SELECT rider_name,place_id FROM rider WHERE event_code = '%s'", $event_code);
+		if (!$query_result) {
+		    echo 'Could not run query: ' . mysqli_error();
+		    exit;
+		}
+		$row_of_riders = mysqli_query($conn, $get_riders);
 
 		?>
 	</head>
@@ -65,12 +72,26 @@
 				</label>
 
 				<?php
-
+					echo "Drivers: <br>";
 					while ($row = mysqli_fetch_array($row_of_drivers))  
 					{
 					    echo "<label class=\"title\"> 
 					    			<h3 class=\"section-break-title\"> 
 						    			Driver: " .$row["driver_name"]. 
+						    			"<br>
+						    			Starting Location:" . $row["place_id"] 
+					    			."</h3>
+							</label>";
+
+					}
+					
+					echo "<br> Riders: <br>";
+
+					while ($row = mysqli_fetch_array($row_of_riders))  
+					{
+					    echo "<label class=\"title\"> 
+					    			<h3 class=\"section-break-title\"> 
+						    			Rider: " .$row["rider_name"]. 
 						    			"<br>
 						    			Starting Location:" . $row["place_id"] 
 					    			."</h3>

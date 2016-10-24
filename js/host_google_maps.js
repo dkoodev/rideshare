@@ -1,3 +1,36 @@
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -33.8688, lng: 151.2195},
+    zoom: 13
+  });
+
+  var input = document.getElementById('pac-input');
+
+  var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.bindTo('bounds', map);
+
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  var infowindow = new google.maps.InfoWindow();
+  var marker = new google.maps.Marker({
+    map: map
+  });
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
+  });
+
+  // var input = document.getElementById('pac-input');
+  // var autocomplete = new google.maps.places.Autocomplete(input);
+  var geo_id;
+  autocomplete.addListener('place_changed', function() {
+    // My code--------------
+    var place = autocomplete.getPlace();
+    geo_id = place.place_id;
+    document.getElementById("addressArea").value = geo_id;
+    // ---------------------
+
+  });
+}
 
 function initAutocomplete() {
 	var map = new google.maps.Map(document.getElementById('map'), {
@@ -67,21 +100,45 @@ function initAutocomplete() {
   	});
   	
   	map.fitBounds(bounds);
-	});
-	
-  var input = document.getElementById('pac-input');
-  var autocomplete = new google.maps.places.Autocomplete(input);
-  var geo_id;
-  autocomplete.addListener('place_changed', function() {
 
-    var place = autocomplete.getPlace();
-    geo_id = place.place_id;
-    document.getElementById("addressArea").value = geo_id;
-    // $.post('host.php', {variable: geo_id});
-    
-  });
+
+    var input = document.getElementById('pac-input');
+    var autocomplete = new google.maps.places.Autocomplete(input);
+
+    autocomplete.addListener('place_changed', function() {
+
+      console.log("does it even enter");
+      infowindow.close();
+      var place = autocomplete.getPlace();
+      if (!place.geometry) {
+        return;
+      }
+
+      if (place.geometry.viewport) {
+        map.fitBounds(place.geometry.viewport);
+      } else {
+        map.setCenter(place.geometry.location);
+        map.setZoom(17);
+      }
+
+      // Set the position of the marker using the place ID and location.
+      marker.setPlace({
+        placeId: place.place_id,
+        location: place.geometry.location
+      });
+      marker.setVisible(true);
+
+      infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+          'Place ID: ' + place.place_id + '<br>' +
+          place.formatted_address);
+      infowindow.open(map, marker);
+
+    });
+	});
+
+
+
 
 
 
 }
-

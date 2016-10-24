@@ -119,7 +119,7 @@ session_start();
 		    die("Connection failed: " . mysqli_connect_error());
 		}
 		// create sql command
-		$sql = sprintf("INSERT INTO rider (rider_name,place_idevent_code) VALUES ('%s','%s','%s')", $driver_name , $place_id , $event_code);
+		$sql = sprintf("INSERT INTO rider (rider_name,place_id,event_code) VALUES ('%s','%s','%s')", $rider_name , $place_id , $event_code);
 		// $sql = sprintf("INSERT INTO host (event_name) VALUES ('%s')", $event_name );
 		// $sql = sprintf("INSERT INTO host (place_id) VALUES ('%s')" , $place_id );
 
