@@ -1,144 +1,148 @@
+  // This example requires the Places library. Include the libraries=places
+  // parameter when you first load the API. For example:
+  // <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBipA0YTrMPK1wx2Ok4DXNj7NTiiLVGpVY&libraries=places">
+
+//   function initMap() {
+//     var map = new google.maps.Map(document.getElementById('map'), {
+//       center: {lat: -33.8688, lng: 151.2195},
+//       zoom: 13
+//     });
+//     var input = /** @type {!HTMLInputElement} */(
+//         document.getElementById('pac-input'));
+
+//     var types = document.getElementById('type-selector');
+//     map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+//     map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
+
+//     var autocomplete = new google.maps.places.Autocomplete(input);
+//     autocomplete.bindTo('bounds', map);
+
+//     var infowindow = new google.maps.InfoWindow();
+//     var marker = new google.maps.Marker({
+//       map: map,
+//       anchorPoint: new google.maps.Point(0, -29)
+//     });
+
+//     autocomplete.addListener('place_changed', function() {
+//         console.log("initMap autocomplete addListener");
+
+//         infowindow.close();
+//         marker.setVisible(false);
+//         var place = autocomplete.getPlace();
+//         if (!place.geometry) {
+//           window.alert("Autocomplete's returned place contains no geometry");
+//           return;
+//         }
+
+//         // If the place has a geometry, then present it on a map.
+//         if (place.geometry.viewport) {
+//           map.fitBounds(place.geometry.viewport);
+//         } else {
+//           map.setCenter(place.geometry.location);
+//           map.setZoom(17);  // Why 17? Because it looks good.
+//         }
+//         marker.setIcon(/** @type {google.maps.Icon} */({
+//           url: place.icon,
+//           size: new google.maps.Size(71, 71),
+//           origin: new google.maps.Point(0, 0),
+//           anchor: new google.maps.Point(17, 34),
+//           scaledSize: new google.maps.Size(35, 35)
+//         }));
+//         marker.setPosition(place.geometry.location);
+//         marker.setVisible(true);
+
+//         var address = '';
+//         if (place.address_components) {
+//           address = [
+//             (place.address_components[0] && place.address_components[0].short_name || ''),
+//             (place.address_components[1] && place.address_components[1].short_name || ''),
+//             (place.address_components[2] && place.address_components[2].short_name || '')
+//           ].join(' ');
+//         }
+
+//         infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+//         infowindow.open(map, marker);
+//         });
+
+// }
+
 function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -33.8688, lng: 151.2195},
-    zoom: 13
-  });
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -33.8688, lng: 151.2195},
+          zoom: 13
+        });
+        var input = /** @type {!HTMLInputElement} */(
+            document.getElementById('pac-input'));
 
-  var input = document.getElementById('pac-input');
+        var types = document.getElementById('type-selector');
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(types);
 
-  var autocomplete = new google.maps.places.Autocomplete(input);
-  autocomplete.bindTo('bounds', map);
+        var autocomplete = new google.maps.places.Autocomplete(input);
+        autocomplete.bindTo('bounds', map);
 
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        var infowindow = new google.maps.InfoWindow();
+        var marker = new google.maps.Marker({
+          map: map,
+          anchorPoint: new google.maps.Point(0, -29)
+        });
 
-  var infowindow = new google.maps.InfoWindow();
-  var marker = new google.maps.Marker({
-    map: map
-  });
-  marker.addListener('click', function() {
-    infowindow.open(map, marker);
-  });
+        autocomplete.addListener('place_changed', function() {
+                  var place = autocomplete.getPlace();
+      geo_id = place.place_id;
+      document.getElementById("addressArea").value = geo_id;
+          infowindow.close();
+          marker.setVisible(false);
+          var place = autocomplete.getPlace();
+          if (!place.geometry) {
+            window.alert("Autocomplete's returned place contains no geometry");
+            return;
+          }
 
-  // var input = document.getElementById('pac-input');
-  // var autocomplete = new google.maps.places.Autocomplete(input);
-  var geo_id;
-  autocomplete.addListener('place_changed', function() {
-    // My code--------------
-    var place = autocomplete.getPlace();
-    geo_id = place.place_id;
-    document.getElementById("addressArea").value = geo_id;
-    // ---------------------
+          // If the place has a geometry, then present it on a map.
+          if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
+          } else {
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);  // Why 17? Because it looks good.
+          }
+          marker.setIcon(/** @type {google.maps.Icon} */({
+            url: place.icon,
+            size: new google.maps.Size(71, 71),
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(17, 34),
+            scaledSize: new google.maps.Size(35, 35)
+          }));
+          marker.setPosition(place.geometry.location);
+          marker.setVisible(true);
 
-  });
-}
+          var address = '';
+          if (place.address_components) {
+            address = [
+              (place.address_components[0] && place.address_components[0].short_name || ''),
+              (place.address_components[1] && place.address_components[1].short_name || ''),
+              (place.address_components[2] && place.address_components[2].short_name || '')
+            ].join(' ');
+          }
 
-function initAutocomplete() {
-	var map = new google.maps.Map(document.getElementById('map'), {
-	  center: {lat: -33.8688, lng: 151.2195},
-	  zoom: 13,
-	  mapTypeId: 'roadmap'
-	});
-
-	// Create the search box and link it to the UI element.
-	var input = document.getElementById('pac-input');
-	var searchBox = new google.maps.places.SearchBox(input);
-	map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-	// Bias the SearchBox results towards current map's viewport.
-	map.addListener('bounds_changed', function() {
- 		searchBox.setBounds(map.getBounds());
-	});
-
-	var markers = [];
-	// Listen for the event fired when the user selects a prediction and retrieve
-	// more details for that place.
-	searchBox.addListener('places_changed', function() {
-		var places = searchBox.getPlaces();
-
-		if (places.length == 0) {
-    		return;
-  	}
-
- 		// Clear out the old markers.
-  	markers.forEach(function(marker) {
-    		marker.setMap(null);
-  	});
-  	
-  	markers = [];
-
-  	// For each place, get the icon, name and location.
-  	var bounds = new google.maps.LatLngBounds();
-  	places.forEach(function(place) {
-    		if (!place.geometry) {
-      		console.log("Returned place contains no geometry");
-      		return;
-    		}
-    
-      	var icon = {
-        	url: place.icon,
-        	size: new google.maps.Size(71, 71),
-        	origin: new google.maps.Point(0, 0),
-        	anchor: new google.maps.Point(17, 34),
-        	scaledSize: new google.maps.Size(25, 25)
-      	};
-
-      	// Create a marker for each place.
-      	markers.push(new google.maps.Marker({
-        	map: map,
-        	icon: icon,
-        	title: place.name,
-        	position: place.geometry.location
-      	}));
-
-      	if (place.geometry.viewport) {
-        	// Only geocodes have viewport.
-        	bounds.union(place.geometry.viewport);
-      	} 
-      	else {
-        	bounds.extend(place.geometry.location);
-      	}
-  	});
-  	
-  	map.fitBounds(bounds);
-
-
-    var input = document.getElementById('pac-input');
-    var autocomplete = new google.maps.places.Autocomplete(input);
-
-    autocomplete.addListener('place_changed', function() {
-
-      console.log("does it even enter");
-      infowindow.close();
-      var place = autocomplete.getPlace();
-      if (!place.geometry) {
-        return;
-      }
-
-      if (place.geometry.viewport) {
-        map.fitBounds(place.geometry.viewport);
-      } else {
-        map.setCenter(place.geometry.location);
-        map.setZoom(17);
-      }
-
-      // Set the position of the marker using the place ID and location.
-      marker.setPlace({
-        placeId: place.place_id,
-        location: place.geometry.location
-      });
-      marker.setVisible(true);
-
-      infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-          'Place ID: ' + place.place_id + '<br>' +
-          place.formatted_address);
-      infowindow.open(map, marker);
-
-    });
-	});
-
-
-
-
-
+          infowindow.setContent('<div><strong>' + place.name + '</strong><br>' + address);
+          infowindow.open(map, marker);
+        });
 
 }
+
+
+// var input = document.getElementById('pac-input');
+// var autocomplete = new google.maps.places.Autocomplete(input);
+// var geo_id;
+// autocomplete.addListener('place_changed', function() {
+//       // My code--------------
+//       var place = autocomplete.getPlace();
+//       geo_id = place.place_id;
+//       document.getElementById("addressArea").value = geo_id;
+//       // ---------------------
+
+// });
+
+
+

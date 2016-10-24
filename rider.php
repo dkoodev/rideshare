@@ -138,7 +138,7 @@ session_start();
 	    <!-- Google Map Placement API -->
 	    <script src="./js/host_google_maps.js"></script>
 	    <!-- Google API javascript reference -->
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBipA0YTrMPK1wx2Ok4DXNj7NTiiLVGpVY&libraries=places&callback=initAutocomplete"
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAJ_0Uy4w3qTnmYQCnGZZIcHQk5Hu9j4MA&libraries=places&callback=initMap"
 	     async defer></script>
 		<script scr="./js/jquery-3.1.1.js"
 </html>
