@@ -23,25 +23,26 @@
 		<div class = "title page">
 			"Welcome to Ride Share"		
 		</div>
+
 		<div>
-			<li> 
-				<a href = "host.php">
-					Host an Event
-				</a>
+			<li>
+				<form action="host.php">
+    				<input type="submit" value="Host an Event" />
+				</form>
 			</li>
 
 			<li>
-				<a href = "driver_validation.php">
-					Be a Driver
-				</a>
+				<form action="driver_validation.php">
+    				<input type="submit" value="Become a Driver" />
+				</form>
 			</li>
 				
-
 			<li>
-				<a href = "rider_validation.php">
-					I Need to be Picked up!
-				</a>
+				<form action="rider_validation.php">
+    				<input type="submit" value="I Need to be Picked Up" />
+				</form>
 			</li>
+
 			<li>
 				Track Rides Progress
 			</li>
