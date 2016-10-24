@@ -12,12 +12,43 @@
 	    <script type="text/javascript" src="formoid_files/formoid1/jquery.min.js"></script>
 		<script type="text/javascript" src="formoid_files/formoid1/formoid-solid-blue.js"></script>
 		<!-- Functions -->
+		<?php
+		session_start();
 		
+
+		include '../config.php';
+		$event_code = $_SESSION['event_code'];
+
+		echo $event_code;
+		$conn = mysqli_connect($host, $user, $password, $db);
+		if (!$conn) {
+		    die("Connection failed: " . mysqli_connect_error());
+		}
+		$get_event_name = sprintf("SELECT event_name FROM host WHERE event_code = '%s'", $event_code);
+		$query_result = mysqli_query($conn, $get_event_name);
+
+		if (!$query_result) {
+		    echo 'Could not run query: ' . mysqli_error();
+		    exit;
+		}
+		$row = mysqli_fetch_array($query_result);
+
+		$event_name = $row[0];
+
+
+		$get_drivers = sprintf("SELECT driver_name,place_id FROM driver WHERE event_code = '%s'", $event_code);
+		if (!$query_result) {
+		    echo 'Could not run query: ' . mysqli_error();
+		    exit;
+		}
+		$row_of_drivers = mysqli_query($conn, $get_drivers);
+
+		?>
 	</head>
 
 	<body class="blurBg-false" style="background-color:#EBEBEB">
 		<div class = "title page">
-			"Host an Event"		
+			Check Progress		
 		</div>
 <!-- PHP form validation -->
 
@@ -26,14 +57,28 @@
 		<!-- Start Formoid form-->
 		<form class="formoid-solid-blue"  style="background-color:#FFFFFF;font-size:14px;font-family:'Roboto',Arial,Helvetica,sans-serif;color:#34495E;max-width:480px;min-width:150px" method="post">
 			<div class="title">
-				<h2>Create Event</h2>
+				<h2>Check Progress of Your Event</h2>
 			</div>
 			<div class="element-input">
-				<label class="title"></label>
-				<div class="item-cont">
-					<input class="large" type="text" name="input" placeholder="Event Name"/>
-					<span class="icon-place"></span>
-				</div>
+				<label class="title"> 
+					<h3 class="section-break-title"> Event Name: <?php echo $event_name; ?> </h3>
+				</label>
+
+				<?php
+
+					while ($row = mysqli_fetch_array($row_of_drivers))  
+					{
+					    echo "<label class=\"title\"> 
+					    			<h3 class=\"section-break-title\"> 
+						    			Driver: " .$row["driver_name"]. 
+						    			"<br>
+						    			Starting Location:" . $row["place_id"] 
+					    			."</h3>
+							</label>";
+
+					}
+
+				?>
 
 
 				<div class="element-separator"><hr>
@@ -63,9 +108,8 @@
 
 	</body>
 <?php
-
+	// session_start();
 	// bring in db configure 
-	include '../config.php';
 	// define variables and set to empty values
 
 	// function test_input($data) {
@@ -76,7 +120,7 @@
 	// }
 
 	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-		$event_name = $place_id = "";
+		$driver_name = $place_id = "";
 		// $doc = new DomDocument;
 		// // We need to validate our document before refering to the id
 		// $doc->validateOnParse = true;
@@ -86,17 +130,17 @@
 		// $place_id = test_input($_POST['variable']);
 
 		$place_id = $_POST["place_id"];
-	  	$event_name = $_POST["input"];
+	  	$driver_name = $_POST["driver_name"];
 	  	// $place_id = test_input($_POST['variable']);
 
 		// Create connection
-		$conn = mysqli_connect($host, $user, $password, $db);
+		// $conn = mysqli_connect($host, $user, $password, $db);
 		// Check connection
-		if (!$conn) {
-		    die("Connection failed: " . mysqli_connect_error());
-		}
+	  	// if (!$conn) {
+	  	//     die("Connection failed: " . mysqli_connect_error());
+	  	// }
 		// create sql command
-		$sql = sprintf("INSERT INTO host (event_name,place_id) VALUES ('%s','%s')", $event_name , $place_id );
+		$sql = sprintf("INSERT INTO driver (driver_name,place_id,event_code) VALUES ('%s','%s','%s')", $driver_name , $place_id , $event_code);
 		// $sql = sprintf("INSERT INTO host (event_name) VALUES ('%s')", $event_name );
 		// $sql = sprintf("INSERT INTO host (place_id) VALUES ('%s')" , $place_id );
 
