@@ -83,6 +83,7 @@
 					    			."</h3>
 							</label>";
 
+
 					}
 					
 					echo "<br> Riders: <br>";
@@ -129,6 +130,15 @@
 
 	</body>
 <?php
+
+	// for ($i=0; $i < count($row_of_drivers); $i++) { 
+	// 	echo "<script type=\"text/javascript\">
+ //    			var javaScriptVar = ". echo $someVar; .";
+	// 		 </script>";
+	// }
+	// for ($j=0; $j <count($row_of_riders) ; $j++) { 
+	// 	# code...
+	// }
 	// session_start();
 	// bring in db configure 
 	// define variables and set to empty values
@@ -174,7 +184,7 @@
 	}
 
 	mysqli_close($conn);
-	
+	include'./php/functions.php';
 ?>
 
 	    <!-- Google Map Placement API -->
