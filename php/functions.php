@@ -20,32 +20,28 @@
 	$row_of_riders = mysqli_fetch_assoc(mysqli_query($conn, $get_riders));
 	echo $row_of_riders[0];
 
-	$query = mysqli_query($get_drivers);
+	$query = mysqli_query($conn, $get_drivers);
+
 	$results = array();
 	while($line = mysqli_fetch_assoc($query)){
 	    $results[] = $line;
 	}
-	echo $results['4'];
-?>
-	<script type="text/javascript">
 
-	    var js_row_of_drivers = <?php echo json_encode($row_of_drivers); ?>;
-	    var js_row_of_riders =  <?php echo json_encode($row_of_riders); ?>;
-	    for (var i = 0; i < js_row_of_drivers.length; i++) {
-	    	console.log(js_row_of_drivers[i]);
-	    };
+	// This is the data you want to pass to Python
+	// $data = array('as', 'df', 'gh');
 
-	    for (var i = 0; i < js_row_of_riders.length; i++) {
-	    	console.log(js_row_of_riders[i]);
-	    };
+	// Execute the python script with the JSON data
+	$shell_result = shell_exec('python ../python/functions.py ' . escapeshellarg(json_encode($results)));
+	echo "after shell_result";
 
-	</script>
-
-<?php
-
-	$result = shell_exec('python functions.py');
-	echo $result;
+	echo $shell_result;
 
 
+	// Decode the result
+	$resultData = json_decode($result, true);
+
+	// This will contain: array('status' => 'Yes!')
+	var_dump($resultData);
+	echo "<br><br><br><br>";
 	mysqli_close($conn);
 ?>
